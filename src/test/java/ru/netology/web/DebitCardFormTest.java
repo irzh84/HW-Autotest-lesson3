@@ -4,19 +4,25 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DebitCardFormTest {
     private WebDriver driver;
 
     @BeforeAll
-    public static void setupAll() {
-        System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
+    public static void setup() {
+        // System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
+    public void BeforeEach() {
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
@@ -25,12 +31,14 @@ public class DebitCardFormTest {
         driver = null;
     }
 
+
     @Test
     void shouldTestPositiveValues() throws InterruptedException {
        // throw new UnsupportedOperationException();
-      driver.get("http://localhost:9999");
-      Thread.sleep(5000);
-      
+        driver.get("http://localhost:9999");
+        Thread.sleep(5000);
+
+
     }
 //        open("http://localhost:9999");
 //        $("[data-test-id=name] input").setValue("Ольга");
